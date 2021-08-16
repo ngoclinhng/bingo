@@ -5,6 +5,7 @@
 -endif.
 
 -export([read_buzzwords/0]).
+-export_type([buzzword/0]).
 
 %% TODO: the application name is defined in "./bingo.app.src"
 -define(APP_NAME, bingo).

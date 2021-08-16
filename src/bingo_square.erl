@@ -30,7 +30,7 @@ create_upsell_square() ->
     Expected = #bingo_square{
                   phrase = "Upsell",
                   points = 100,
-                  marked_by = nil
+                  marked_by = undefined
                  },
     Square =:= Expected.
 
@@ -39,7 +39,7 @@ create_low_hanging_fruit_square() ->
     Expected = #bingo_square{
                   phrase = "Low hanging fruit",
                   points = 400,
-                  marked_by = nil
+                  marked_by = undefined
                  },
     Square =:= Expected.
 
@@ -48,7 +48,7 @@ create_from_buzzword() ->
     Expected = #bingo_square{
                   phrase = "Foo",
                   points = 10,
-                  marked_by = nil
+                  marked_by = undefined
                  },
     Square =:= Expected.
 
