@@ -69,7 +69,8 @@ mark_phrase(Phrase, Player, Game) when
       is_record(Player, bingo_player) ->
     UpdateSquares = update_squares_with_mark(Game, Phrase, Player),
     UpdateScores = update_scores(UpdateSquares),
-    UpdateScores.
+    AssignWinner = assign_winner_if_bingo(Player, UpdateScores),
+    AssignWinner.
 
 %%
 %% HELPERS.
@@ -110,6 +111,21 @@ score_reducer(
     Name = Someone#bingo_player.name,
     Fun = fun(OldPoints) -> OldPoints + Points end,
     maps:update_with(Name, Fun, Points, ScoreAcc).
+
+%% Checks if the given game is `bingo` and the current winner field is
+%% still undefined, if that's the case, assign the given player as
+%% winner.
+-spec assign_winner_if_bingo(bingo_player(), bingo_game()) -> bingo_game().
+assign_winner_if_bingo(Player, #bingo_game{winner = undefined} = Game) ->
+    Squares = Game#bingo_game.squares,
+    case bingo_checker:is_bingo(Squares) of
+        true ->
+            Game#bingo_game{winner = Player};
+        false ->
+            Game
+    end;
+assign_winner_if_bingo(_Player, Game) ->
+    Game.
 
 %% Finds the square in the given 2D `Grid` that has the given `Phrase`,
 %% and marks it for the given `Player`.

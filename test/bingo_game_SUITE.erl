@@ -311,18 +311,18 @@ play_till_bingo(Config) ->
     R21 = bingo_game:mark_phrase("five", P1, R12),
     ?ASSERT_SQUARES_EQUAL(
        [
-        [?ONE(P1), ?TWO, ?THREE],
+        [?ONE(P1),  ?TWO,      ?THREE],
         [?FOUR(P2), ?FIVE(P1), ?SIX],
-        [?SEVEN, ?EIGHT, ?NINE]
+        [?SEVEN,    ?EIGHT,    ?NINE]
        ], R21),
     ?ASSERT_SCORES_EQUAL(#{?PLAYER1_NAME => 6, ?PLAYER2_NAME => 4}, R21),
     ?ASSERT_WINNER_EQUAL(undefined, R21),
     R22 = bingo_game:mark_phrase("two", P2, R21),
     ?ASSERT_SQUARES_EQUAL(
        [
-        [?ONE(P1), ?TWO(P2), ?THREE],
+        [?ONE(P1),  ?TWO(P2),  ?THREE],
         [?FOUR(P2), ?FIVE(P1), ?SIX],
-        [?SEVEN, ?EIGHT, ?NINE]
+        [?SEVEN,    ?EIGHT,    ?NINE]
        ], R22),
     ?ASSERT_SCORES_EQUAL(#{?PLAYER1_NAME => 6, ?PLAYER2_NAME => 6}, R22),
     ?ASSERT_WINNER_EQUAL(undefined, R22),
@@ -330,21 +330,31 @@ play_till_bingo(Config) ->
     R31 = bingo_game:mark_phrase("six", P1, R22),
     ?ASSERT_SQUARES_EQUAL(
        [
-        [?ONE(P1), ?TWO(P2), ?THREE],
+        [?ONE(P1),  ?TWO(P2),  ?THREE],
         [?FOUR(P2), ?FIVE(P1), ?SIX(P1)],
-        [?SEVEN, ?EIGHT, ?NINE]
+        [?SEVEN,    ?EIGHT,    ?NINE]
        ], R31),
     ?ASSERT_SCORES_EQUAL(#{?PLAYER1_NAME => 12, ?PLAYER2_NAME => 6}, R31),
     ?ASSERT_WINNER_EQUAL(undefined, R31),
     R32 = bingo_game:mark_phrase("three", P2, R31),
     ?ASSERT_SQUARES_EQUAL(
        [
-        [?ONE(P1), ?TWO(P2), ?THREE(P2)],
+        [?ONE(P1),  ?TWO(P2),  ?THREE(P2)],
         [?FOUR(P2), ?FIVE(P1), ?SIX(P1)],
-        [?SEVEN, ?EIGHT, ?NINE]
+        [?SEVEN,    ?EIGHT,    ?NINE]
        ], R32),
     ?ASSERT_SCORES_EQUAL(#{?PLAYER1_NAME => 12, ?PLAYER2_NAME => 9}, R32),
-    ?ASSERT_WINNER_EQUAL(undefined, R32).
+    ?ASSERT_WINNER_EQUAL(undefined, R32),
+    %% Round 4 ----------------------------------------------
+    R41 = bingo_game:mark_phrase("nine", P1, R32),
+    ?ASSERT_SQUARES_EQUAL(
+       [
+        [?ONE(P1),  ?TWO(P2),  ?THREE(P2)],
+        [?FOUR(P2), ?FIVE(P1), ?SIX(P1)],
+        [?SEVEN,    ?EIGHT,    ?NINE(P1)]
+       ], R41),
+    ?ASSERT_SCORES_EQUAL(#{?PLAYER1_NAME => 21, ?PLAYER2_NAME => 9}, R41),
+    ?ASSERT_WINNER_EQUAL(P1, R41).
 
 %%
 %% HELPERS.
