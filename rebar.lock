@@ -1,1 +1,4 @@
-[].
+[{<<"ecolor">>,
+  {git,"https://github.com/ngoclinhng/ecolor",
+       {ref,"832155648e68c0f7c5a0e2e036548b0e8b779a02"}},
+  0}].
