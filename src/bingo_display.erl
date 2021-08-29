@@ -29,14 +29,22 @@ print_squares(Squares) ->
 %% Print each row.
 -spec print_row([bingo_square()], integer()) -> ok.
 print_row(Row, ColWidth) ->
-    MapFun = fun(Square) ->
-                     Text = text_in_square(Square),
-                     string:pad(Text, ColWidth, trailing)
-             end,
+    MapFun = fun(Square) -> square_string(Square, ColWidth) end,
     Texts = lists:map(MapFun, Row),
     RowString = lists:join(" | ", Texts),
     print_row_divider(length(Row), ColWidth),
     io:format("| ~ts |~n", [RowString]).
+
+%% Returns the final string (colored & padded) representation of the
+%% given square.
+-spec square_string(bingo_square(), integer()) -> string().
+square_string(#bingo_square{marked_by = undefined} = S, ColWidth) ->
+    T0 = text_in_square(S),
+    string:pad(T0, ColWidth, trailing);
+square_string(#bingo_square{marked_by = P} = S, ColWidth) ->
+    T0 = text_in_square(S),
+    T1 = string:pad(T0, ColWidth, trailing),
+    ecolor:set_foreground(P#bingo_player.color, T1).
 
 %% Print row divider.
 -spec print_row_divider(integer(), integer()) -> ok.
