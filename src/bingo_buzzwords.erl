@@ -67,6 +67,6 @@ test_data() ->
 
 buzzword_from_binary_test_() ->
     TestData = test_data(),
-    [?_assert(buzzword_from_binary(I) =:= E) || {I, E} <- TestData].
+    [?_assertEqual(E, buzzword_from_binary(I)) || {I, E} <- TestData].
 
 -endif.

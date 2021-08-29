@@ -17,7 +17,7 @@ shuffle([], State) ->
 shuffle([E], State) ->
     shuffle([], [E | State]);
 shuffle(List, State) ->
-    N = random:uniform(length(List)),
+    N = rand:uniform(length(List)),
     {Next, Rest} = delete_at(N, List),
     shuffle(Rest, [Next | State]).
 
@@ -50,37 +50,37 @@ is_valid_position(_,_) ->
 -ifdef(TEST).
 
 shuffle_test_() ->
-    [?_assert(shuffle([]) =:= []),
-     ?_assert(shuffle([a]) =:= [a]),
-     ?_assert(length(shuffle([a, b])) =:= 2),
-     ?_assert(length(shuffle([a, b, c])) =:= 3)
+    [?_assertEqual([], shuffle([])),
+     ?_assertEqual([a], shuffle([a])),
+     ?_assertEqual(2, length(shuffle([a, b]))),
+     ?_assertEqual(3, length(shuffle([a, b, c])))
     ].
 
 delete_at_test_() ->
-    [?_assert(delete_at(1, [a, b, c]) =:= {a, [b, c]}),
-     ?_assert(delete_at(2, [a, b, c]) =:= {b, [a, c]}),
-     ?_assert(delete_at(3, [a, b, c]) =:= {c, [a, b]}),
+    [?_assertEqual({a, [b, c]}, delete_at(1, [a, b, c])),
+     ?_assertEqual({b, [a, c]}, delete_at(2, [a, b, c])),
+     ?_assertEqual({c, [a, b]}, delete_at(3, [a, b, c])),
 
-     ?_assert(delete_at(1, [a, b]) =:= {a, [b]}),
-     ?_assert(delete_at(2, [a, b]) =:= {b, [a]}),
+     ?_assertEqual({a, [b]}, delete_at(1, [a, b])),
+     ?_assertEqual({b, [a]}, delete_at(2, [a, b])),
 
-     ?_assert(delete_at(1, [a]) =:= {a, []}),
+     ?_assertEqual({a, []}, delete_at(1, [a])),
 
-     ?_assert(delete_at(4, [a, b, c]) =:= error),
-     ?_assert(delete_at(0, [a, b, c]) =:= error),
-     ?_assert(delete_at(-1, [a, b, c]) =:= error),
+     ?_assertEqual(error, delete_at(4, [a, b, c])),
+     ?_assertEqual(error, delete_at(0, [a, b, c])),
+     ?_assertEqual(error, delete_at(-1, [a, b, c])),
 
-     ?_assert(delete_at(3, [a, b]) =:= error),
-     ?_assert(delete_at(0, [a, b]) =:= error),
-     ?_assert(delete_at(-1, [a, b]) =:= error),
+     ?_assertEqual(error, delete_at(3, [a, b])),
+     ?_assertEqual(error, delete_at(0, [a, b])),
+     ?_assertEqual(error, delete_at(-1, [a, b])),
 
-     ?_assert(delete_at(2, [a]) =:= error),
-     ?_assert(delete_at(0, [a]) =:= error),
-     ?_assert(delete_at(-1, [a]) =:= error),
+     ?_assertEqual(error, delete_at(2, [a])),
+     ?_assertEqual(error, delete_at(0, [a])),
+     ?_assertEqual(error, delete_at(-1, [a])),
 
-     ?_assert(delete_at(1, []) =:= error),
-     ?_assert(delete_at(0, []) =:= error),
-     ?_assert(delete_at(-1, []) =:= error)
+     ?_assertEqual(error, delete_at(1, [])),
+     ?_assertEqual(error, delete_at(0, [])),
+     ?_assertEqual(error, delete_at(-1, []))
     ].
 
 is_valid_position_test_() ->

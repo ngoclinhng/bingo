@@ -107,7 +107,7 @@ column_width_test_() ->
               9
              }
             ],
-    [?_assert(column_width(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, column_width(In)) || {In, Out} <- Tests].
 
 %% text_in_square tests.
 
@@ -124,6 +124,6 @@ text_in_square_test_() ->
               "Proof Of Concept (375)"
              }
             ],
-    [?_assert(text_in_square(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, text_in_square(In)) || {In, Out} <- Tests].
 
 -endif.

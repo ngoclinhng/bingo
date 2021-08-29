@@ -147,7 +147,7 @@ rotate_90_degrees(Matrix) ->
 %% is_bingo tests.
 
 is_bingo_true_test_() ->
-    P = ?PLAYER("Some Player", "green"),
+    P = ?PLAYER("Some Player", green),
     T = [
          [[?SQUARE("s1",1,P), ?SQUARE("s2",2,P), ?SQUARE("s3",3,P)],
           [?SQUARE("s4",4),   ?SQUARE("s5",5),   ?SQUARE("s6",6)],
@@ -234,7 +234,7 @@ bingo_sequences_test_() ->
                [3, 5, 7]]
              }
             ],
-    [?_assert(bingo_sequences(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, bingo_sequences(In)) || {In, Out} <- Tests].
 
 %% left_diagonal tests.
 
@@ -260,7 +260,7 @@ left_diagonal_test_() ->
               [a11, a22, a33, a44]
              }
             ],
-    [?_assert(left_diagonal(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, left_diagonal(In)) || {In, Out} <- Tests].
 
 %% right_diagonal tests.
 
@@ -292,7 +292,7 @@ right_diagonal_test_() ->
               [4, 7, 10, 13]
              }
             ],
-    [?_assert(right_diagonal(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, right_diagonal(In)) || {In, Out} <- Tests].
 
 %% rotate_90_degrees tests.
 
@@ -330,7 +330,7 @@ rotate_90_degrees_test_() ->
                [1, 5, 9, 13]]
              }
             ],
-    [?_assert(rotate_90_degrees(In) =:= Out) || {In, Out} <- Tests].
+    [?_assertEqual(Out, rotate_90_degrees(In)) || {In, Out} <- Tests].
 
 %% take_every tests.
 
@@ -378,12 +378,12 @@ take_every_test_() ->
              {15, lists:seq(1, 10), [1]},
              {2000, lists:seq(1, 10), [1]}
             ],
-    [?_assert(take_every(N, In) =:= Out) || {N, In, Out} <- Tests].
+    [?_assertEqual(Out, take_every(N, In)) || {N, In, Out} <- Tests].
 
 %% all_squares_marked_by_same_player tests.
 
 all_squares_marked_by_same_player_true_test_() ->
-    P = ?PLAYER("Some Player", "green"),
+    P = ?PLAYER("Some Player", green),
     Tests = [
              [?SQUARE("one", 1, P)],
              [?SQUARE("one", 1, P), ?SQUARE("two", 2, P)],
@@ -402,8 +402,8 @@ all_squares_marked_by_same_player_true_test_() ->
     [?_assert(all_squares_marked_by_same_player(L)) || L <- Tests].
 
 all_squares_marked_by_same_player_false_test_() ->
-    P1 = ?PLAYER("Player 1", "green"),
-    P2 = ?PLAYER("Player 2", "red"),
+    P1 = ?PLAYER("Player 1", green),
+    P2 = ?PLAYER("Player 2", red),
     Tests = [
              [?SQUARE("one", 1)],
 
@@ -464,8 +464,8 @@ transpose_1xn_matrix_test_() ->
               [["11"], ["12"], ["13"], ["14"], ["15"], ["16"], ["17"]]
              }
             ],
-    T1 = [?_assert(transpose(In) =:= Out) || {In, Out} <- Tests],
-    T2 = [?_assert(transpose(Out) =:= In) || {In, Out} <- Tests],
+    T1 = [?_assertEqual(Out, transpose(In)) || {In, Out} <- Tests],
+    T2 = [?_assertEqual(In, transpose(Out)) || {In, Out} <- Tests],
     T1 ++ T2.
 
 transpose_2xn_matrix_test_() ->
@@ -478,8 +478,8 @@ transpose_2xn_matrix_test_() ->
               [[a, 1], [b, 2], [c, 3], [d, 4]]
              }
             ],
-    T1 = [?_assert(transpose(In) =:= Out) || {In, Out} <- Tests],
-    T2 = [?_assert(transpose(Out) =:= In) || {In, Out} <- Tests],
+    T1 = [?_assertEqual(Out, transpose(In)) || {In, Out} <- Tests],
+    T2 = [?_assertEqual(In, transpose(Out)) || {In, Out} <- Tests],
     T1 ++ T2.
 
 transpose_3xn_matrix_test_() ->
@@ -495,8 +495,8 @@ transpose_3xn_matrix_test_() ->
               [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
              }
             ],
-    T1 = [?_assert(transpose(In) =:= Out) || {In, Out} <- Tests],
-    T2 = [?_assert(transpose(Out) =:= In) || {In, Out} <- Tests],
+    T1 = [?_assertEqual(Out, transpose(In)) || {In, Out} <- Tests],
+    T2 = [?_assertEqual(In, transpose(Out)) || {In, Out} <- Tests],
     T1 ++ T2.
 
 transpose_4xn_matrix_test_() ->
@@ -535,8 +535,8 @@ transpose_4xn_matrix_test_() ->
                [a15, a25, a35, a45]]
              }
             ],
-    T1 = [?_assert(transpose(In) =:= Out) || {In, Out} <- Tests],
-    T2 = [?_assert(transpose(Out) =:= In) || {In, Out} <- Tests],
+    T1 = [?_assertEqual(Out, transpose(In)) || {In, Out} <- Tests],
+    T2 = [?_assertEqual(In, transpose(Out)) || {In, Out} <- Tests],
     T1 ++ T2.
 
 transpose_3x3_bingo_squares_test_() ->
@@ -551,8 +551,8 @@ transpose_3x3_bingo_squares_test_() ->
            [?SQUARE("three", 3), ?SQUARE("six", 6), ?SQUARE("nine", 9)]
           ],
     [
-     ?_assert(transpose(In) =:= Out),
-     ?_assert(transpose(Out) =:= In)
+     ?_assertEqual(Out, transpose(In)),
+     ?_assertEqual(In, transpose(Out))
     ].
 
 -endif.

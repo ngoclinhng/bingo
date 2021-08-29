@@ -25,39 +25,31 @@ from_buzzword(#{phrase := Phrase, points := Points}) ->
 
 -ifdef(TEST).
 
-create_upsell_square() ->
+create_upsell_square_test() ->
     Square = new("Upsell", 100),
     Expected = #bingo_square{
                   phrase = "Upsell",
                   points = 100,
                   marked_by = undefined
                  },
-    Square =:= Expected.
+    ?assertEqual(Expected, Square).
 
-create_low_hanging_fruit_square() ->
+create_low_hanging_fruit_square_test() ->
     Square = new("Low hanging fruit", 400),
     Expected = #bingo_square{
                   phrase = "Low hanging fruit",
                   points = 400,
                   marked_by = undefined
                  },
-    Square =:= Expected.
+    ?assertEqual(Expected, Square).
 
-create_from_buzzword() ->
+create_from_buzzword_test() ->
     Square = from_buzzword(#{phrase => "Foo", points => 10}),
     Expected = #bingo_square{
                   phrase = "Foo",
                   points = 10,
                   marked_by = undefined
                  },
-    Square =:= Expected.
-
-new_test_() ->
-    [
-     ?_assert(create_upsell_square()),
-     ?_assert(create_low_hanging_fruit_square()),
-     ?_assert(create_from_buzzword()),
-     ?_assertException(error, function_clause, from_buzzword("foo"))
-    ].
+    ?assertEqual(Expected, Square).
 
 -endif.

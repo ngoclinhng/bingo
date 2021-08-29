@@ -112,8 +112,8 @@
 -define(PLAYER2_NAME, "Player2").
 
 init_per_testcase(_TestCase, Config) ->
-    Player1 = bingo_player:new(?PLAYER1_NAME, "green"),
-    Player2 = bingo_player:new(?PLAYER2_NAME, "red"),
+    Player1 = bingo_player:new(?PLAYER1_NAME, green),
+    Player2 = bingo_player:new(?PLAYER2_NAME, red),
     Game = create_3x3_game(),
     [{player1, Player1}, {player2, Player2}, {game, Game} | Config].
 
